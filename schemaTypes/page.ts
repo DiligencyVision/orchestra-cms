@@ -273,22 +273,6 @@ export const page = defineType({
       ],
     }),
 
-    // ⚠️ Home CTA existant conservé pour compat (migration plus tard vers finalCta)
-    defineField({
-      name: "homeCta",
-      title: "🎯 CTA final Accueil (legacy)",
-      type: "object",
-      fieldset: "home",
-      fields: [
-        defineField({ name: "titleRich", title: "Titre (rich)", type: "array", of: [richTextBlock] }),
-        defineField({ name: "textRich", title: "Texte (rich)", type: "array", of: [richTextBlock] }),
-        defineField({ name: "primaryLabel", title: "CTA primaire — label", type: "string" }),
-        defineField({ name: "primaryHref", title: "CTA primaire — lien", type: "string" }),
-        defineField({ name: "secondaryLabel", title: "CTA secondaire — label", type: "string" }),
-        defineField({ name: "secondaryHref", title: "CTA secondaire — lien", type: "string" }),
-      ],
-    }),
-
     // ============================================================
     // 🏛️ CABINET
     // ============================================================
@@ -328,22 +312,6 @@ export const page = defineType({
             defineField({ name: "content", title: "Texte (rich)", type: "array", of: [richTextBlock] }),
           ],
         }),
-      ],
-    }),
-
-    // ⚠️ Cabinet CTA existant conservé pour compat (migration plus tard vers finalCta)
-    defineField({
-      name: "cabinetCta",
-      title: "🎯 CTA final Cabinet (legacy)",
-      type: "object",
-      fieldset: "cabinet",
-      fields: [
-        defineField({ name: "titleRich", title: "Titre (rich)", type: "array", of: [richTextBlock] }),
-        defineField({ name: "textRich", title: "Texte (rich)", type: "array", of: [richTextBlock] }),
-        defineField({ name: "primaryLabel", title: "CTA primaire — label", type: "string" }),
-        defineField({ name: "primaryHref", title: "CTA primaire — lien", type: "string" }),
-        defineField({ name: "secondaryLabel", title: "CTA secondaire — label", type: "string" }),
-        defineField({ name: "secondaryHref", title: "CTA secondaire — lien", type: "string" }),
       ],
     }),
 
