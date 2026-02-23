@@ -37,6 +37,18 @@ const titleLinesField = defineField({
   validation: (Rule) => Rule.min(1).max(4),
 });
 
+/**
+ * Helper: titre de section en rich text (requis)
+ * On retire les champs 'title' string => titleRich devient la source de vérité.
+ */
+const sectionTitleRichFieldRequired = defineField({
+  name: "titleRich",
+  title: "Titre (rich)",
+  type: "array",
+  of: [richTextBlock],
+  validation: (Rule) => Rule.required().min(1),
+});
+
 export const page = defineType({
   name: "page",
   title: "📄 Page",
@@ -350,7 +362,7 @@ export const page = defineType({
           title: "🧩 Une nouvelle façon de travailler",
           type: "object",
           fields: [
-            defineField({ name: "title", title: "Titre", type: "string" }),
+            sectionTitleRichFieldRequired, // ✅ remplace 'title' string
             defineField({ name: "emoji", title: "Emoji", type: "string" }),
             defineField({ name: "contentRich", title: "Texte (rich)", type: "array", of: [richTextBlock] }),
           ],
@@ -362,7 +374,7 @@ export const page = defineType({
           title: "❓ Pourquoi ORCHESTRA",
           type: "object",
           fields: [
-            defineField({ name: "title", title: "Titre", type: "string" }),
+            sectionTitleRichFieldRequired, // ✅ remplace 'title' string
             defineField({ name: "introRich", title: "Intro (rich)", type: "array", of: [richTextBlock] }),
             defineField({ name: "label", title: "Label (ex: ORCHESTRA permet de :)", type: "string" }),
             defineField({
@@ -390,7 +402,7 @@ export const page = defineType({
           title: "🧠 Composition du noyau ORCHESTRA",
           type: "object",
           fields: [
-            defineField({ name: "title", title: "Titre", type: "string" }),
+            sectionTitleRichFieldRequired, // ✅ remplace 'title' string
             defineField({ name: "introRich", title: "Intro (rich)", type: "array", of: [richTextBlock] }),
             defineField({ name: "label", title: "Label (ex: Exemples de composants :)", type: "string" }),
 
@@ -444,7 +456,7 @@ export const page = defineType({
           title: "👤 Le rôle central de l’humain",
           type: "object",
           fields: [
-            defineField({ name: "title", title: "Titre", type: "string" }),
+            sectionTitleRichFieldRequired, // ✅ remplace 'title' string
             defineField({ name: "introRich", title: "Intro (rich)", type: "array", of: [richTextBlock] }),
             defineField({ name: "label", title: "Label (ex: Les experts humains sont là pour :)", type: "string" }),
             defineField({
@@ -472,7 +484,7 @@ export const page = defineType({
           title: "⚙️ Fonctionnement global",
           type: "object",
           fields: [
-            defineField({ name: "title", title: "Titre", type: "string" }),
+            sectionTitleRichFieldRequired, // ✅ remplace 'title' string
             defineField({ name: "introRich", title: "Intro (rich)", type: "array", of: [richTextBlock] }),
             defineField({
               name: "steps",
@@ -499,7 +511,7 @@ export const page = defineType({
           title: "📈 Bénéfices pour le client",
           type: "object",
           fields: [
-            defineField({ name: "title", title: "Titre", type: "string" }),
+            sectionTitleRichFieldRequired, // ✅ remplace 'title' string
             defineField({ name: "introRich", title: "Intro (rich)", type: "array", of: [richTextBlock] }),
             defineField({
               name: "cards",
