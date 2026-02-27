@@ -239,11 +239,11 @@ export const page = defineType({
     // - descriptionRich : optionnel (flexibilité client)
     // - badge, CTAs : optionnels (rendu conditionnel côté front)
     //
-    // HERO BACKGROUND (point B) :
-    // - backgroundMode / backgroundImage / overlayIntensity
-    // - Statut : "front support now" — implémenté dans les 6 pages
-    // - overlayIntensity en string "40"|"70"|"90" = contrat implicite front
-    //   Le front lit cette valeur et l'applique comme opacité CSS
+    // HERO BACKGROUND :
+    // - backgroundMode : "solid" | "image" | "video"
+    // - backgroundImage : image plein fond (mode image)
+    // - backgroundVideo : fichier vidéo mp4/webm (mode video)
+    // - overlayIntensity : "40"|"70"|"90" — actif sur image ET video
     // ============================================================
     defineField({
       name: "hero",
@@ -256,11 +256,12 @@ export const page = defineType({
           title: "Fond du hero",
           type: "string",
           description:
-            "Fond uni : couleur globale du site. Image : photo uploadée avec overlay.",
+            "Fond uni : couleur globale du site. Image : photo uploadée avec overlay. Vidéo : fichier mp4/webm avec overlay.",
           options: {
             list: [
               { title: "Fond uni (défaut)", value: "solid" },
               { title: "Image de fond", value: "image" },
+              { title: "Vidéo de fond", value: "video" },
             ],
             layout: "radio",
           },
@@ -289,22 +290,39 @@ export const page = defineType({
           hidden: ({ parent }) => parent?.backgroundMode !== "image",
         }),
 
+        // ✅ AJOUT VIDÉO : champ backgroundVideo (type file, mp4/webm)
+        // Caché sauf si backgroundMode === "video"
+        defineField({
+          name: "backgroundVideo",
+          title: "Vidéo de fond",
+          type: "file",
+          description:
+            "Format MP4 recommandé (H.264). WebM accepté. Taille recommandée : < 20 Mo. Visible uniquement si 'Vidéo de fond' est sélectionné.",
+          options: {
+            accept: "video/mp4,video/webm",
+          },
+          hidden: ({ parent }) => parent?.backgroundMode !== "video",
+        }),
+
         defineField({
           name: "overlayIntensity",
           title: "Intensité de l'overlay sombre",
           type: "string",
           description:
-            "Contrôle la lisibilité du texte sur l'image. 40 = overlay léger (40% noir), 70 = équilibré (70% noir), 90 = texte prioritaire (90% noir).",
+            "Contrôle la lisibilité du texte sur l'image ou la vidéo. 40 = overlay léger, 70 = équilibré (défaut), 90 = texte prioritaire.",
           options: {
             list: [
-              { title: "Léger — image très visible", value: "40" },
+              { title: "Léger — image/vidéo très visible", value: "40" },
               { title: "Moyen — équilibré (défaut)", value: "70" },
               { title: "Fort — texte prioritaire", value: "90" },
             ],
             layout: "radio",
           },
           initialValue: "70",
-          hidden: ({ parent }) => parent?.backgroundMode !== "image",
+          // ✅ AJOUT VIDÉO : overlay actif sur image ET video
+          hidden: ({ parent }) =>
+            parent?.backgroundMode !== "image" &&
+            parent?.backgroundMode !== "video",
         }),
 
         defineField({
@@ -656,22 +674,9 @@ export const page = defineType({
                     {
                       type: "object",
                       fields: [
-                        defineField({
-                          name: "icon",
-                          title: "Icône (optionnel)",
-                          type: "string",
-                        }),
-                        defineField({
-                          name: "title",
-                          title: "Titre",
-                          type: "string",
-                        }),
-                        defineField({
-                          name: "text",
-                          title: "Texte",
-                          type: "text",
-                          rows: 4,
-                        }),
+                        defineField({ name: "icon", title: "Icône (optionnel)", type: "string" }),
+                        defineField({ name: "title", title: "Titre", type: "string" }),
+                        defineField({ name: "text", title: "Texte", type: "text", rows: 4 }),
                       ],
                     },
                   ],
@@ -685,22 +690,9 @@ export const page = defineType({
                     {
                       type: "object",
                       fields: [
-                        defineField({
-                          name: "icon",
-                          title: "Icône (optionnel)",
-                          type: "string",
-                        }),
-                        defineField({
-                          name: "title",
-                          title: "Titre",
-                          type: "string",
-                        }),
-                        defineField({
-                          name: "text",
-                          title: "Texte",
-                          type: "text",
-                          rows: 4,
-                        }),
+                        defineField({ name: "icon", title: "Icône (optionnel)", type: "string" }),
+                        defineField({ name: "title", title: "Titre", type: "string" }),
+                        defineField({ name: "text", title: "Texte", type: "text", rows: 4 }),
                       ],
                     },
                   ],
