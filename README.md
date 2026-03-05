@@ -1,9 +1,82 @@
-# Sanity Clean Content Studio
+# ORCHESTRA — CMS (Sanity v5)
 
-Congratulations, you have now installed the Sanity Content Studio, an open-source real-time content editing environment connected to the Sanity backend.
+Studio Sanity v5 du projet ORCHESTRA — source de vérité pour tous les contenus éditoriaux du site vitrine CMS-first.
 
-Now you can do the following things:
+> Copie personnelle conservée dans le cadre du BTS SIO SLAM.  
+> Repo officiel : github.com/DiligencyVision/orchestra-cms
 
-- [Read “getting started” in the docs](https://www.sanity.io/docs/introduction/getting-started?utm_source=readme)
-- [Join the Sanity community](https://www.sanity.io/community/join?utm_source=readme)
-- [Extend and build plugins](https://www.sanity.io/docs/content-studio/extending?utm_source=readme)
+---
+
+## 🎯 Rôle
+
+Ce repo contient le Studio Sanity — interface d'administration des contenus du site ORCHESTRA.
+Toutes les pages du site sont pilotées depuis ce CMS. Le frontend Next.js consomme les contenus via l'API Sanity (requêtes GROQ).
+
+---
+
+## 🗂️ Architecture des contenus
+
+### Type `page` (type unique)
+Toutes les pages du site sont des instances de ce type :
+- `title` · `slug` · `seoTitle` · `seoDescription`
+- `hero` : titre rich text, sous-titre, fond (solid / image / vidéo)
+- `sections` : blocs de contenu modulaires
+- `finalCta` : appel à l'action final commun
+
+### Pages gérées
+| Page | Slug |
+|------|------|
+| Accueil | `/` |
+| Le Cabinet | `/cabinet` |
+| Méthode ORCHESTRA | `/methode` |
+| Fonctionnement | `/fonctionnement` |
+| Expertises | `/expertises` |
+| FAQ | `/faq` |
+| Contact | `/contact` |
+
+### Type `globalSettings` (singleton)
+Données partagées entre toutes les pages :
+- Identité visuelle (brand, couleur, font, logo)
+- Navigation Header (liens, CTA)
+- Contenu Footer (colonnes, copyright)
+- SEO global (metaTitle, metaDescription, ogImage)
+
+---
+
+## ⚙️ Stack
+
+- Sanity v5 · TypeScript
+- Studio déployé sur orchestra-cms.sanity.studio
+
+---
+
+## 🔗 Lien avec le frontend
+
+Ce repo est indépendant du frontend Next.js (`orchestra-e6`).
+Le frontend consomme les contenus via l'API Sanity avec des requêtes GROQ centralisées dans `lib/sanity/queries.ts`.
+
+Principe cardinal : **le CMS est la source de vérité — le frontend est le moteur de rendu.**
+
+---
+
+## 🚀 Lancer en local
+```bash
+npm install
+npm run dev
+```
+→ http://localhost:3333
+
+---
+
+## 🧠 Retours d'expérience clés
+
+- Toujours aligner schéma Sanity → requête GROQ → typage TypeScript → composant React
+- Redémarrer le Studio après toute modification de schéma
+- Ne jamais modifier plusieurs couches simultanément
+- Tester le rendu si un champ CMS est vide (prévoir des fallbacks)
+
+---
+
+## 👤 Auteur
+
+Walter Jean Charles — Stage Diligency Vision — 2026
